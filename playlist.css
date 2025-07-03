@@ -1,0 +1,355 @@
+/* ========== Global Reset ========== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ========== Body ========== */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #ffffff;
+  color: #222;
+  line-height: 1.6;
+  transition: background 0.3s, color 0.3s;
+}
+
+/* ========== Header ========== */
+header {
+  background-color: #0c2e00;
+  color: #fff;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+header h2 {
+  font-size: 2em;
+  margin-bottom: 10px;
+}
+
+/* ========== Navigation ========== */
+nav {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+nav a,
+nav button {
+  text-decoration: none;
+  background-color: #f0f0f0;
+  color: #000;
+  padding: 8px 14px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1.1em;
+  font-weight: bolder;
+  transition: background 0.2s ease;
+}
+
+nav a:hover,
+nav button:hover {
+  background-color: #ffee00;
+  color: #000;
+}
+
+/* Logo Styling */
+.logo h2 {
+  color: rgb(245, 245, 245);
+  font-weight: bolder;
+  font-size: 1.8rem;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.logo {
+  text-decoration: none;
+}
+
+/* ========== Main Content ========== */
+main {
+  padding: 40px 20px;
+  max-width: 1000px;
+  margin: auto;
+  text-align: center;
+  font-size: 1.1em;
+  color: #000;
+  animation: fadeIn 1s ease-in;
+}
+
+main h3 {
+  font-size: 2em;
+  margin-bottom: 15px;
+}
+
+/* ========== Section ========== */
+section {
+  margin-bottom: 40px;
+  background: white;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
+  animation: slideUp 0.4s ease;
+}
+
+section h4 {
+  font-size: 1.3em;
+  color: #444;
+  margin-bottom: 10px;
+}
+
+/* ========== Footer ========== */
+footer {
+  background-color: #000;
+  color: #fff;
+  padding: 20px;
+  text-align: center;
+  font-size: 1em;
+}
+
+footer a {
+  color: #ffa;
+  margin: 0 8px;
+  text-decoration: none;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}
+
+/* ========== Playlist Specific ========== */
+.page-title {
+  text-align: center;
+  font-size: 2.2rem;
+  color: #1db954;
+  margin-bottom: 20px;
+}
+
+.search-bar {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.search-bar input {
+  width: 60%;
+  max-width: 400px;
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  background: #f7f7f7;
+  color: #222;
+}
+
+.search-bar input::placeholder {
+  color: #999;
+}
+
+.search-bar button {
+  padding: 10px 18px;
+  background: #1db954;
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-left: 10px;
+  transition: background 0.3s ease;
+}
+
+.search-bar button:hover {
+  background: #169442;
+}
+
+#genre-buttons {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+#genre-buttons button {
+  background: #444;
+  color: white;
+  border: none;
+  margin: 6px;
+  padding: 10px 20px;
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+#genre-buttons button:hover {
+  background: #1db954;
+}
+
+.favorites-bar,
+.import-export {
+  text-align: center;
+  margin: 20px;
+}
+
+.favorites-bar button,
+.import-export button,
+.import-label {
+  background-color: #eee;
+  color: #222;
+  padding: 10px 15px;
+  margin: 5px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.2s;
+}
+
+.favorites-bar button:hover,
+.import-export button:hover,
+.import-label:hover {
+  background-color: #1db954;
+  color: white;
+}
+
+#importFile {
+  display: none;
+}
+
+#song-list {
+  list-style: none;
+  padding: 0;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.song-card {
+  background: #f5f5f5;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 15px 0;
+  padding: 12px 18px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  transition: background 0.3s ease;
+}
+
+.song-card:hover {
+  background: #e6ffe6;
+}
+
+.song-card img.cover {
+  width: 60px;
+  height: 60px;
+  border-radius: 8px;
+  margin-right: 16px;
+}
+
+.song-card .info {
+  flex: 1;
+  padding: 0 10px;
+  text-align: left;
+}
+
+.song-card strong {
+  font-size: 1.1rem;
+  color: #222;
+}
+
+.song-card small {
+  color: #666;
+}
+
+.song-actions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.play-btn,
+.fav-btn {
+  font-size: 18px;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  border: none;
+  transition: 0.2s ease;
+}
+
+.play-btn {
+  background: #1db954;
+  color: white;
+}
+
+.play-btn:hover {
+  background: #169442;
+}
+
+.play-btn.playing::after {
+  content: '⏸️';
+  margin-left: 5px;
+}
+
+.fav-btn {
+  background: transparent;
+  font-size: 22px;
+  color: #aaa;
+}
+
+.fav-btn.favorited {
+  color: red;
+}
+
+.fav-btn:hover {
+  transform: scale(1.2);
+}
+
+.music-player {
+  display: none;
+  max-width: 700px;
+  margin: 40px auto 10px;
+  padding: 15px;
+  background: #fafafa;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+}
+
+.music-player.active {
+  display: block;
+}
+
+.music-player audio {
+  width: 100%;
+  border-radius: 8px;
+  outline: none;
+}
+
+#now-playing {
+  margin-top: 12px;
+  font-size: 16px;
+  color: #1db954;
+}
+
+@media (max-width: 600px) {
+  .song-card {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .song-actions {
+    width: 100%;
+    justify-content: flex-end;
+  }
+
+  .search-bar input {
+    width: 80%;
+  }
+}

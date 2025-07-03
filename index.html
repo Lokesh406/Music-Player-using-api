@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My Music Player</title>
+
+  <link rel="stylesheet" href="style.css" />
+  
+  <link rel="shortcut icon" href="fevicon.png" type="image/x-icon">
+  
+   
+</head>
+<body>
+
+  <!-- Header Navigation -->
+  <header>
+    <a href="index.html" class="logo">
+      <h2>🎵 My Music Player</h2>
+    </a>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="playlist.html">Playlist</a>
+      <a href="about.html">About</a>
+      <a href="services.html">Services</a>
+      <a href="contact.html">Contact</a>
+      <a href="login.html" id="login-link">Login</a>
+      <button class="logout" id="logout-btn" style="display: none;">Logout</button>
+    </nav>
+  </header>
+
+   
+  <!-- Main Content -->
+  <main>
+    <h3 style="color: white;">
+  Welcome to <span class="highlight" style="color: white;">My Music Player</span>
+</h3>
+<p style="color: white;">
+ Whether you're at home, on the go, or at work, your music is always just a click away.
+</p>
+
+    <a href="playlist.html" class="btn">🎧 Start Listening</a>
+
+    <!-- Features Section -->
+    <section id="features">
+      <h4>✨ Cool Features</h4>
+      <ul>
+        <li>🎧 High-quality streaming</li>
+        <li>🎼 Custom playlists</li>
+        <li>📲 Offline access</li>
+        <li>🎵 Music discovery</li>
+        <li>📢 Social sharing</li>
+      </ul>
+    </section>
+
+    <!-- Music Player UI -->
+    <section class="music-player">
+      <h4>🎧 Sample Track</h4>
+      <audio id="audio-player" src="song 1.mp3" controls></audio>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 My Music Player. All rights reserved.</p>
+    <p>
+      <a href="privacy.html">Privacy Policy</a> |
+      <a href="terms.html">Terms & Conditions</a>
+    </p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

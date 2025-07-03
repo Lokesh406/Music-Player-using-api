@@ -1,0 +1,67 @@
+<!-- Login Page (login.html) -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My Music Player</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="shortcut icon" href="fevicon.png" type="image/x-icon">
+  <style>
+    body {
+      background-image: url('bg3.gif');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+    </style>
+</head>
+<body>
+  <!-- Header -->
+ <header>
+  <a href="index.html" class="logo">
+    <h2>🎵 My Music Player</h2>
+  </a>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="playlist.html">Playlist</a>
+    <a href="about.html">About</a>
+    <a href="services.html">Services</a>
+    <a href="contact.html">Contact</a>
+    <a href="login.html" id="login-link">Login</a>
+    <button class="logout" id="logout-btn" style="display: none;">Logout</button>
+  </nav>
+</header>
+
+
+  <!-- Login Form -->
+  <main class="login-container">
+    <section id="login">
+      <h3>Login</h3>
+
+      <input type="email" id="login-email" placeholder="Email" required /><br>
+
+      <div class="password-field">
+        <input type="password" id="login-password" placeholder="Password" required />
+        <span class="toggle-password" onclick="togglePassword('login-password', this)">👁</span>
+      </div>
+      <input type="checkbox" id="remember-me" />
+      <label for="remember-me">Remember Me</label><br>
+
+      <button id="login-btn">Login</button>
+
+      <div class="signup-link">
+        <p>Don't have an account? <a href="signup.html">Signup here</a></p>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    &copy; 2025 My Music Player. All rights reserved.
+  </footer>
+
+  <!-- JS -->
+  <script src="script.js"></script>
+</body>
+</html>

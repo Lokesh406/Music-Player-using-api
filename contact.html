@@ -1,0 +1,88 @@
+<!-- Contact Page (contact.html) -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My Music Player</title>
+  <link rel="stylesheet" href="style.css" />
+  
+  <link rel="shortcut icon" href="fevicon.png" type="image/x-icon">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+   <style>
+    body {
+      background-image: url('bg2.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+  </style>
+</head>
+<body>
+  <!-- Header (unchanged) -->
+  <header>
+    <a href="index.html" class="logo">
+      <h2>🎵 My Music Player</h2>
+    </a>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="playlist.html">Playlist</a>
+      <a href="about.html">About</a>
+      <a href="services.html">Services</a>
+      <a href="contact.html">Contact</a>
+      <a href="login.html" id="login-link">Login</a>
+      <a href="signup.html" id="signup-link">Signup</a>
+      <button class="logout" id="logout-btn" style="display: none;">Logout</button>
+    </nav>
+  </header>
+
+  <!-- Main Contact Form -->
+  <main class="contact-page">
+    <section class="contact-info">
+      <h3>📬 Get in Touch</h3>
+      <p>We'd love to hear from you. Whether it's feedback, suggestions, or a simple hello!</p>
+
+      <div class="contact-cards">
+        <div class="contact-card">
+          <i class="fas fa-envelope"></i>
+          <p>Email Us</p>
+          <a href="mailto:support@mymusicplayer.com">support@mymusicplayer.com</a>
+        </div>
+
+        <div class="contact-card">
+          <i class="fas fa-phone-alt"></i>
+          <p>Call Us</p>
+          <span>+91 98765 43210</span>
+        </div>
+
+        <div class="contact-card">
+          <i class="fas fa-map-marker-alt"></i>
+          <p>Visit Us</p>
+          <span>Hyderabad, India</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="contact-form">
+      <h3>✍️ Send a Message</h3>
+      <form id="contactForm">
+        <input type="text" placeholder="Your Name" required />
+        <input type="email" placeholder="Your Email" required />
+        <textarea placeholder="Your Message" rows="5" required></textarea>
+        <button type="submit">Send Message 🚀</button>
+      </form>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 My Music Player. All rights reserved.</p>
+    <p>
+      <a href="privacy.html">Privacy Policy</a> |
+      <a href="terms.html">Terms & Conditions</a>
+    </p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

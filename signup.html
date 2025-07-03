@@ -1,0 +1,91 @@
+<!-- Signup Page (signup.html) -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My Music Player</title>
+  <link rel="stylesheet" href="style.css" />
+  
+  <link rel="shortcut icon" href="fevicon.png" type="image/x-icon">
+   <style>
+    body {
+      background-image: url('bg2.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+<header>
+  <a href="index.html" class="logo">
+    <h2>🎵 My Music Player</h2>
+  </a>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="playlist.html">Playlist</a>
+    <a href="about.html">About</a>
+    <a href="services.html">Services</a>
+    <a href="contact.html">Contact</a>
+
+    <a href="login.html" id="login-link">Login</a>
+    <button class="logout" id="logout-btn" style="display: none;">Logout</button>
+  </nav>
+</header>
+
+
+  <!-- Signup Form -->
+  <main class="login-container">
+    <section id="signup">
+      <h3>Create Your Account</h3>
+      <input type="text" id="signup-username" placeholder="Username" /><br>
+      <input type="email" id="signup-email" placeholder="Email Address" /><br>
+
+      <div class="password-field">
+        <input type="password" id="signup-password" placeholder="Password" />
+        <span class="toggle-password" onclick="togglePassword('signup-password', this)">👁</span>
+      </div><br>
+
+      <div class="password-field">
+        <input type="password" id="signup-confirm-password" placeholder="Confirm Password" />
+        <span class="toggle-password" onclick="togglePassword('signup-confirm-password', this)">👁</span>
+      </div><br>
+
+      <input type="checkbox" id="agree-terms" />
+      <label for="agree-terms">I agree to the <a href="terms.html">Terms and Conditions</a></label><br>
+
+      <input type="checkbox" id="agree-privacy" />
+      <label for="agree-privacy">I agree to the <a href="privacy.html">Privacy Policy</a></label><br>
+
+      <input type="checkbox" id="agree-feedback" />
+      <label for="agree-feedback">I agree to support the platform with my feedback</label><br><br>
+
+      <button id="signup-btn">Register</button>
+
+      <div class="signup-link">
+        <p>Already have an account? <a href="login.html">Login here</a></p>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    &copy; 2025 My Music Player. All rights reserved.
+  </footer>
+
+  <!-- Script -->
+  <script src="script.js"></script>
+  <!-- signup.html -->
+<!-- After creating account, you can auto-login -->
+<script>
+function signupUser() {
+  // your signup logic
+  localStorage.setItem("isLoggedIn", "true");
+  window.location.href = "index.html";
+}
+</script>
+
+</body>
+</html>

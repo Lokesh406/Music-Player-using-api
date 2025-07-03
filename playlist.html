@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My Music Player</title>
+  <link rel="stylesheet" href="playlist.css" />
+</head>
+<body>
+  <header>
+  <a href="index.html" class="logo">
+      <h2>🎵 My Music Player</h2>
+    </a>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="playlist.html">Playlist</a>
+      <a href="about.html">About</a>
+      <a href="services.html">Services</a>
+      <a href="contact.html">Contact</a>
+      <a href="login.html">Login</a>
+      <button class="logout" id="logout-btn" style="display: none;">Logout</button>
+    </nav>
+  </header>
+
+  <main>
+    <h3 class="page-title">🎧 Music Playlist (Deezer API)</h3>
+
+    <div class="search-bar">
+      <input type="text" id="searchInput" placeholder="Search any song, artist, or genre..." />
+      <button onclick="searchSongs()">Search</button>
+    </div>
+
+    <div class="genre" id="genre-buttons">
+      <button onclick="loadSongs('love')">💖 Love Songs</button>
+      <button onclick="loadSongs('devotional')">🕉️ Devotional</button>
+      <button onclick="loadSongs('sad')">😢 Sad Songs</button>
+    </div>
+
+    <div class="favorites-bar" style="text-align:center; margin: 10px 0;">
+      <button onclick="showFavorites()">⭐ View Favorites</button>
+    </div>
+    <button class="fav-btn ${isFav ? 'favorited' : ''}" onclick='toggleFavorite(this, ${JSON.stringify(song)})'>
+     
+</button>
+
+    <div class="import-export" style="text-align:center; margin: 20px;">
+  <button onclick="exportFavorites()">📤 Export Favorites</button>
+  <input type="file" id="importFile" accept=".json" onchange="importFavorites()" />
+  <label for="importFile" class="import-label">📥 Import Favorites</label>
+</div>
+
+
+
+    <ul id="song-list"></ul>
+    <div class="music-player">
+      <audio id="audioPlayer" controls></audio>
+      <p id="now-playing" style="margin-top: 10px; color: #ffdd59;"></p>
+    </div>
+  </main>
+
+  <footer>
+    &copy; 2025 My Music Player. All rights reserved.
+  </footer>
+  <script src="script.js"></script>
+  <script src="playlist.js"></script>
+</body>
+</html>

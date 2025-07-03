@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My Music Player</title>
+  <link rel="stylesheet" href="style.css" />
+  
+  <link rel="shortcut icon" href="fevicon.png" type="image/x-icon">
+  <style>
+    /* 🎶 Services Page Styles */
+    main {
+      padding: 40px 20px;
+      max-width: 1100px;
+      margin: auto;
+      text-align: center;
+    }
+
+    h3 {
+      font-size: 2.5rem;
+      color: #4a148c;
+      background-color: #d0a3db;
+      padding: 20px;
+      border-radius: 100%;
+
+    }
+
+    p {
+      font-size: 1.4rem;
+      margin-bottom: 30px;
+      color: #444;
+    }
+
+    /* 🎧 Service Cards */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+    }
+
+    .service-card {
+      padding: 25px;
+      border-radius: 15px;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .service-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .service-card h4 {
+      font-size: 1.4rem;
+      margin-bottom: 50px;
+      color: #500081;
+    }
+
+    .service-card p {
+      font-size: 1.2rem;
+      line-height: 1.6;
+    }
+
+    .service-icon {
+      font-size: 2rem;
+      margin-bottom: 10px;
+    }
+    body {
+      background-image: url('bg3.png');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+  
+  
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <a href="index.html" class="logo">
+      <h2>🎵 My Music Player</h2>
+    </a>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="playlist.html">Playlist</a>
+      <a href="about.html">About</a>
+      <a href="services.html">Services</a>
+      <a href="contact.html">Contact</a>
+      <a href="login.html" id="login-link">Login</a>
+      <button class="logout" id="logout-btn" style="display: none;">Logout</button>
+    </nav>
+  </header>
+
+  <!-- Main Content -->
+  <main>
+    <h3>Our Services 🎧</h3>
+    <p>We provide an immersive and powerful platform for all your music needs. Check out our features below!</p>
+
+    <div class="services-grid">
+
+      <div class="service-card">
+        <div class="service-icon">🎶</div>
+        <h4>High-Quality Streaming</h4>
+        <p>Enjoy music in the highest possible quality with zero buffering and superior sound clarity.</p>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">🎼</div>
+        <h4>Custom Playlists</h4>
+        <p>Create and manage playlists for every mood, activity, or genre with our intuitive tools.</p>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">📥</div>
+        <h4>Offline Access</h4>
+        <p>Download your favorite tracks and listen anytime, even when you’re not connected to the internet.</p>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">🧠</div>
+        <h4>Smart Recommendations</h4>
+        <p>Get personalized music suggestions based on your listening history and preferences.</p>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">🌍</div>
+        <h4>Global Music Library</h4>
+        <p>Access thousands of songs and artists from all over the world, across languages and genres.</p>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">🤝</div>
+        <h4>Artist Support</h4>
+        <p>We empower independent artists to publish and promote their work to a wider audience.</p>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    &copy; 2025 My Music Player. All rights reserved</a>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
