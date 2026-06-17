@@ -1,191 +1,339 @@
-let currentAudio = null;
+let currentAudioSrc = null;
 let currentPlayBtn = null;
 
-// Fetch and display songs by genre or search query
+// Fetch and display songs
 async function fetchSongs(query) {
   try {
-    const res = await fetch(`https://api.codetabs.com/v1/proxy?quest=https://api.deezer.com/search?q=${query}`);
-    const data = await res.json();
-    const songs = data.data;
-    const list = document.getElementById("song-list");
-    list.innerHTML = '';
+    const res = await fetch(
+      `https://api.codetabs.com/v1/proxy?quest=https://api.deezer.com/search?q=${encodeURIComponent(query)}`
+    );
 
-    if (!songs || songs.length === 0) {
-      list.innerHTML = '<p style="color: white;">No results found.</p>';
+    const data = await res.json();
+    const songs = data.data || [];
+
+    const list = document.getElementById("song-list");
+    list.innerHTML = "";
+
+    if (!songs.length) {
+      list.innerHTML =
+        '<p style="color:white;">No results found.</p>';
       return;
     }
 
-    const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+    const favorites =
+      JSON.parse(localStorage.getItem("favorites")) || [];
 
-    songs.slice(0, 6).forEach(song => {
-      const isFav = favorites.some(fav => fav.id === song.id);
+    songs.slice(0, 6).forEach((song) => {
+      const isFav = favorites.some((fav) => fav.id === song.id);
 
       const li = document.createElement("li");
+
       li.innerHTML = `
         <div class="song-card">
-          <img src="${song.album.cover_medium}" alt="${song.title}" class="cover" />
+          <img
+            src="${song.album.cover_medium}"
+            alt="${song.title_short}"
+            class="cover"
+          />
+
           <div class="info">
-            <strong>${song.title_short}</strong><br/>
+            <strong>${song.title_short}</strong><br>
             <small>${song.artist.name}</small>
           </div>
+
           <div class="song-actions">
-            <button class="play-btn" onclick="playSong('${song.preview}', '${song.title_short}', '${song.artist.name}', this)">▶</button>
-            <button class="fav-btn ${isFav ? 'favorited' : ''}" onclick='toggleFavorite(this, ${JSON.stringify(song)})'>
-              ${isFav ? '❤️' : '🤍'}
+            <button class="play-btn">
+              ▶
+            </button>
+
+            <button class="fav-btn ${
+              isFav ? "favorited" : ""
+            }">
+              ${isFav ? "❤️" : "🤍"}
             </button>
           </div>
         </div>
       `;
+
+      const playBtn = li.querySelector(".play-btn");
+      const favBtn = li.querySelector(".fav-btn");
+
+      playBtn.addEventListener("click", () => {
+        playSong(
+          song.preview,
+          song.title_short,
+          song.artist.name,
+          playBtn
+        );
+      });
+
+      favBtn.addEventListener("click", () => {
+        toggleFavorite(favBtn, song);
+      });
+
       list.appendChild(li);
     });
+  } catch (error) {
+    console.error(error);
 
-  } catch (err) {
-    console.error("Error:", err);
-    document.getElementById("song-list").innerHTML = "<p style='color:red;'>Failed to load songs. Try again later.</p>";
+    document.getElementById("song-list").innerHTML =
+      "<p style='color:red;'>Failed to load songs.</p>";
   }
 }
 
-// Load predefined genres
+// Load genre
 function loadSongs(genre) {
   fetchSongs(genre);
 }
 
-// Search functionality
+// Search songs
 function searchSongs() {
-  const query = document.getElementById("searchInput").value.trim();
-  if (query) fetchSongs(query);
+  const query =
+    document.getElementById("searchInput").value.trim();
+
+  if (query) {
+    fetchSongs(query);
+  }
 }
 
-// Play or pause song
+// Play / Pause song
 function playSong(src, title, artist, btn) {
-  const audio = document.getElementById("audioPlayer");
-  const nowPlaying = document.getElementById("now-playing");
-  const playerBox = document.querySelector(".music-player");
-
-  if (currentAudio && currentAudio !== src) {
-    audio.pause();
-    if (currentPlayBtn) currentPlayBtn.classList.remove('playing');
+  if (!src) {
+    alert("Preview unavailable.");
+    return;
   }
 
-  // Toggle play/pause
-  if (audio.src === src) {
+  const audio = document.getElementById("audioPlayer");
+  const nowPlaying =
+    document.getElementById("now-playing");
+
+  const playerBox =
+    document.querySelector(".music-player");
+
+  if (
+    currentPlayBtn &&
+    currentPlayBtn !== btn
+  ) {
+    currentPlayBtn.classList.remove("playing");
+    currentPlayBtn.textContent = "▶";
+  }
+
+  if (currentAudioSrc === src) {
     if (audio.paused) {
       audio.play();
       btn.classList.add("playing");
-      playerBox.classList.add("active");
+      btn.textContent = "⏸";
     } else {
       audio.pause();
       btn.classList.remove("playing");
+      btn.textContent = "▶";
     }
   } else {
     audio.src = src;
     audio.play();
-    nowPlaying.innerText = `Now Playing: ${title} - ${artist}`;
+
     btn.classList.add("playing");
+    btn.textContent = "⏸";
+
+    nowPlaying.textContent =
+      `Now Playing: ${title} - ${artist}`;
+
     playerBox.classList.add("active");
+
+    currentAudioSrc = src;
   }
 
-  currentAudio = src;
   currentPlayBtn = btn;
 }
 
 // Toggle favorite
 function toggleFavorite(btn, song) {
-  let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
-  const index = favorites.findIndex(fav => fav.id === song.id);
+  let favorites =
+    JSON.parse(localStorage.getItem("favorites")) || [];
+
+  const index = favorites.findIndex(
+    (fav) => fav.id === song.id
+  );
 
   if (index === -1) {
-    favorites.push(song);
+    favorites.push({
+      id: song.id,
+      title_short: song.title_short,
+      artist: song.artist,
+      album: song.album,
+      preview: song.preview
+    });
+
     btn.classList.add("favorited");
-    btn.innerText = "❤️";
+    btn.textContent = "❤️";
   } else {
     favorites.splice(index, 1);
+
     btn.classList.remove("favorited");
-    btn.innerText = "🤍";
+    btn.textContent = "🤍";
   }
 
-  localStorage.setItem('favorites', JSON.stringify(favorites));
+  localStorage.setItem(
+    "favorites",
+    JSON.stringify(favorites)
+  );
 }
 
-// Show all favorite songs
+// Show favorites
 function showFavorites() {
-  const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
-  const list = document.getElementById("song-list");
-  list.innerHTML = '';
+  const favorites =
+    JSON.parse(localStorage.getItem("favorites")) || [];
+
+  const list =
+    document.getElementById("song-list");
+
+  list.innerHTML = "";
 
   if (!favorites.length) {
-    list.innerHTML = '<p style="color: white;">No favorites yet.</p>';
+    list.innerHTML =
+      '<p style="color:white;">No favorites yet.</p>';
     return;
   }
 
   favorites.forEach((song, index) => {
     const li = document.createElement("li");
+
     li.innerHTML = `
       <div class="song-card">
-        <img src="${song.album.cover_medium}" alt="${song.title}" class="cover" />
+        <img
+          src="${song.album.cover_medium}"
+          alt="${song.title_short}"
+          class="cover"
+        />
+
         <div class="info">
-          <strong>${song.title_short}</strong><br/>
+          <strong>${song.title_short}</strong><br>
           <small>${song.artist.name}</small>
         </div>
+
         <div class="song-actions">
-          <button class="play-btn" onclick="playSong('${song.preview}', '${song.title_short}', '${song.artist.name}', this)">▶</button>
-          <button onclick="removeFromFavorites(${index})">❌</button>
+          <button class="play-btn">
+            ▶
+          </button>
+
+          <button class="remove-btn">
+            ❌
+          </button>
         </div>
       </div>
     `;
+
+    li.querySelector(".play-btn")
+      .addEventListener("click", () => {
+        playSong(
+          song.preview,
+          song.title_short,
+          song.artist.name,
+          li.querySelector(".play-btn")
+        );
+      });
+
+    li.querySelector(".remove-btn")
+      .addEventListener("click", () => {
+        removeFromFavorites(index);
+      });
+
     list.appendChild(li);
   });
 }
 
-// Remove song from favorites
+// Remove favorite
 function removeFromFavorites(index) {
-  let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
-  const removed = favorites.splice(index, 1);
-  localStorage.setItem('favorites', JSON.stringify(favorites));
-  alert(`Removed "${removed[0].title_short}" from Favorites`);
+  let favorites =
+    JSON.parse(localStorage.getItem("favorites")) || [];
+
+  favorites.splice(index, 1);
+
+  localStorage.setItem(
+    "favorites",
+    JSON.stringify(favorites)
+  );
+
   showFavorites();
 }
 
-// Export favorites as JSON
+// Export favorites
 function exportFavorites() {
-  const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
-  if (!favorites.length) return alert("No favorites to export!");
+  const favorites =
+    JSON.parse(localStorage.getItem("favorites")) || [];
 
-  const blob = new Blob([JSON.stringify(favorites, null, 2)], { type: "application/json" });
-  const url = URL.createObjectURL(blob);
+  if (!favorites.length) {
+    alert("No favorites to export!");
+    return;
+  }
 
-  const a = document.createElement("a");
+  const blob = new Blob(
+    [JSON.stringify(favorites, null, 2)],
+    { type: "application/json" }
+  );
+
+  const url =
+    URL.createObjectURL(blob);
+
+  const a =
+    document.createElement("a");
+
   a.href = url;
   a.download = "favorites.json";
+
   document.body.appendChild(a);
   a.click();
   document.body.removeChild(a);
+
+  setTimeout(() => {
+    URL.revokeObjectURL(url);
+  }, 100);
 }
 
-// Import favorites from file
+// Import favorites
 function importFavorites() {
-  const fileInput = document.getElementById("importFile");
-  const file = fileInput.files[0];
+  const fileInput =
+    document.getElementById("importFile");
+
+  const file =
+    fileInput.files[0];
+
   if (!file) return;
 
   const reader = new FileReader();
-  reader.onload = function (e) {
+
+  reader.onload = (e) => {
     try {
-      const imported = JSON.parse(e.target.result);
-      if (!Array.isArray(imported)) throw new Error("Invalid format");
+      const imported =
+        JSON.parse(e.target.result);
 
-      let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+      if (!Array.isArray(imported))
+        throw new Error();
 
-      imported.forEach(song => {
-        if (!favorites.some(fav => fav.id === song.id)) {
+      let favorites =
+        JSON.parse(
+          localStorage.getItem("favorites")
+        ) || [];
+
+      imported.forEach((song) => {
+        if (
+          song.id &&
+          !favorites.some(
+            (fav) => fav.id === song.id
+          )
+        ) {
           favorites.push(song);
         }
       });
 
-      localStorage.setItem('favorites', JSON.stringify(favorites));
+      localStorage.setItem(
+        "favorites",
+        JSON.stringify(favorites)
+      );
+
       alert("Favorites imported successfully!");
       showFavorites();
-    } catch (err) {
+    } catch {
       alert("Invalid JSON file!");
     }
   };
@@ -193,18 +341,52 @@ function importFavorites() {
   reader.readAsText(file);
 }
 
-// Spacebar toggles play/pause
-document.addEventListener("keydown", function (e) {
-  const audio = document.getElementById("audioPlayer");
-  if (e.code === "Space" && audio.src) {
+// Search on Enter
+document
+  .getElementById("searchInput")
+  ?.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") {
+      searchSongs();
+    }
+  });
+
+// Spacebar Play/Pause
+document.addEventListener("keydown", (e) => {
+  const audio =
+    document.getElementById("audioPlayer");
+
+  if (
+    e.code === "Space" &&
+    audio.src
+  ) {
     e.preventDefault();
-    const playing = !audio.paused;
-    if (playing) {
-      audio.pause();
-      if (currentPlayBtn) currentPlayBtn.classList.remove("playing");
-    } else {
+
+    if (audio.paused) {
       audio.play();
-      if (currentPlayBtn) currentPlayBtn.classList.add("playing");
+
+      if (currentPlayBtn) {
+        currentPlayBtn.classList.add("playing");
+        currentPlayBtn.textContent = "⏸";
+      }
+    } else {
+      audio.pause();
+
+      if (currentPlayBtn) {
+        currentPlayBtn.classList.remove("playing");
+        currentPlayBtn.textContent = "▶";
+      }
     }
   }
 });
+
+// Audio ended
+document
+  .getElementById("audioPlayer")
+  ?.addEventListener("ended", () => {
+    if (currentPlayBtn) {
+      currentPlayBtn.classList.remove("playing");
+      currentPlayBtn.textContent = "▶";
+    }
+
+    currentAudioSrc = null;
+  });
